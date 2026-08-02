@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 import sqlite3
-frm letos import Error
+from sqlite3 import Error
 
 app = Flask(__name__)
 DATABASE = "tags.db"
