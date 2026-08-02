@@ -1,5 +1,23 @@
 from flask import Flask, render_template
+import sqlite3
+frm letos import Error
+
 app = Flask(__name__)
+DATABASE = "tags.db"
+
+def create_connection(db_file):
+    """
+    Creates a connection to the database
+    :parameter db_file - the name of the file
+    :returns connection - a connection to the database
+    """
+
+    try:
+        connection = sqlite3.connect(db_file)
+        return connection
+    except Error as e:
+        print(e)
+    return None
 
 tags = [
     ["color", "Changes the text colour"],
