@@ -31,7 +31,16 @@ def render_home():
 
 @app.route('/webpages')
 def render_webpages():
-    return render_template('webpages.html')
+    query = "SELECT tag, description from html_tags WHERE type= 'HTML'"
+    con = create_connection(DATABASE)
+    cur = con.cursor()
+
+    # Query the DATABASE
+    cur.execute(query)
+    tag_list = cur.fetchall()
+    con.close()
+    print(tag_list)
+    return render_template('webpages.html', tags=tag_list)
 
 @app.route('/styles')
 def render_styles():
