@@ -1,9 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import sqlite3
 from sqlite3 import Error
 
 app = Flask(__name__)
-DATABASE = "tags.db"
+DATABASE = "dance.db"
 
 def create_connection(db_file):
     """
@@ -31,7 +31,7 @@ def render_home():
 
 @app.route('/webpages')
 def render_webpages():
-    query = "SELECT tag, description from html_tags WHERE type= 'HTML'"
+    query = "SELECT dance_name, description FROM Dances WHERE type = 'HTML'"
     con = create_connection(DATABASE)
     cur = con.cursor()
 
@@ -39,6 +39,7 @@ def render_webpages():
     cur.execute(query)
     tag_list = cur.fetchall()
     con.close()
+
     print(tag_list)
     return render_template('webpages.html', tags=tag_list)
 
@@ -46,5 +47,39 @@ def render_webpages():
 def render_styles():
     return render_template('styles.html', tags=tags)
 
+
+@app.route('/search', methods=['POST'])
+def search():
+    search_term = request.form['search']
+
+    query = """
+    SELECT dance_name, description
+    FROM Dances
+    WHERE dance_name LIKE ?
+    OR description LIKE ?
+"""
+
+    con = create_connection(DATABASE)
+    cur = con.cursor()
+
+    cur.execute(query, ('%' + search_term + '%', '%' + search_term + '%'))
+    results = cur.fetchall()
+
+    con.close()
+
+    return render_template('search.html', results=results, search_term=search_term)
+
+@app.route('/test')
+def test():
+    con = create_connection(DATABASE)
+    cur = con.cursor()
+
+    cur.execute("SELECT name FROM sqlite_master WHERE type='table'")
+    tables = cur.fetchall()
+
+    con.close()
+    return str(tables)
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
+

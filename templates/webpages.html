@@ -10,6 +10,11 @@
         <h1>Webpages</h1>
     </header>
     <nav>
+        <form action="/search" method="POST" class="search-bar">
+    <input type="text" name="search" id="search" placeholder="Search tags...">
+    <input type="submit" value="Search">
+</form>
+
         <ul>
             <li>
                 <a href="/">Home</a>
@@ -23,26 +28,26 @@
         </ul>
     </nav>
     <main>
-        <h2>HTML</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Tag</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for tag in tags %}
-                <tr>
-                    <td>{{ tag[0] }}</td>
-                    <td>{{ tag[1] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-            
+    <h2>Webtags</h2>
 
-        </table>
-    </main>
+    <table>
+        <thead>
+            <tr>
+                <th>Tag</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for tag in tags %}
+            <tr>
+                <td>{{ tag[0] }}</td>
+                <td>{{ tag[1] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
     <footer>
         <p>&copy; D Benseman 2022</p>
     </footer>

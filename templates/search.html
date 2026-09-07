@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>DANCE FORMS</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/webpages">HTML</a></li>
+        <li><a href="/styles">CSS</a></li>
+    </ul>
+</nav>
+
+<main>
+
+    <h2>Search Results for "{{ search_term }}"</h2>
+
+    {% if results %}
+
+        {% for dance in results %}
+            <div class="dance-result">
+                <h3>{{ dance[0] }}</h3>
+                <p>{{ dance[1] }}</p>
+            </div>
+        {% endfor %}
+
+    {% else %}
+        <p>No dances found.</p>
+    {% endif %}
+
+</main>
+
+</body>
+</html>
