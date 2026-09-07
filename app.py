@@ -3,7 +3,7 @@ import sqlite3
 from sqlite3 import Error
 
 app = Flask(__name__)
-DATABASE = "dance.db"
+DATABASE = "Dances.db"
 
 def create_connection(db_file):
     """
